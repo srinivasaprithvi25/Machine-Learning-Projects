@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Forecasting</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?v={{ version }}">
+
+    <style>
+        /* Styling for the loading popup */
+        .loading-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            z-index: 1000;
+            font-size: 1.2em;
+        }
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+    </style>
+
+    <script>
+        function showLoadingPopup() {
+            document.getElementById("loading-overlay").style.display = "block";
+            document.getElementById("loading-popup").style.display = "block";
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>SIMPLEHUMAN Sales Forecasting</h1>
+        <form action="/forecast" method="POST" onsubmit="showLoadingPopup()">
+            <label for="customer_code">Customer Code:</label>
+            <input type="text" id="customer_code" name="customer_code" required>
+            <br>
+            <label for="sku">SKU (enter 'all' for all SKUs):</label>
+            <input type="text" id="sku" name="sku" required>
+            <br>
+            <input type="submit" value="Forecast">
+        </form>
+    </div>
+
+    <!-- Loading popup -->
+    <div id="loading-overlay" class="loading-overlay"></div>
+    <div id="loading-popup" class="loading-popup">
+        Please wait, forecasting in progress. This may take some time...
+    </div>
+
+    {% if results %}
+    <div class="results">
+        <h2>Forecast Results</h2>
+        <ul>
+            {% for sku, plot in results %}
+            <li>
+                <h3>SKU: {{ sku }}</h3>
+                <img src="{{ url_for('static', filename=plot) }}" alt="Forecast Plot for SKU {{ sku }}">
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+
+    {% if all_skus %}
+    <div class="results">
+        <h2>Available SKUs for Customers</h2>
+        <ul>
+            {% for customer, skus in all_skus.items() %}
+            <li><strong>Customer: {{ customer }}</strong>
+                <ul>
+                    {% for sku in skus %}
+                    <li>{{ sku }}</li>
+                    {% endfor %}
+                </ul>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+</body>
+</html>

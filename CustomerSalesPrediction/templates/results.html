@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forecast Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?v={{ version }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Forecast Results</h1>
+        <a href="/" class="back-link">Go back</a>
+
+        {% if results %}
+            {% for sku, plot in results %}
+                <div class="result-item">
+                    <h2>SKU: {{ sku }}</h2>
+                    <img src="{{ url_for('static', filename=plot) }}" alt="Forecast Plot for SKU {{ sku }}" class="forecast-image">
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No forecast results available.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
