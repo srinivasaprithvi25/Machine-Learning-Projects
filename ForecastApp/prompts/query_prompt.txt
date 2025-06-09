@@ -1,0 +1,16 @@
+Available tables and columns for predictions:
+
+Sales Header table:
+order_number, sop_type, origin_number, customer_po_number, document_date, order_date, due_date, customer_number, customer_name, location_code, location_name, salespersond_id, salesperson_name, currency_id, requested_shipdate, actual_ship_date, shipping_method, posting_status, sop_status, customer_country, zipcode, salesorder_amount, payment_received, deposit_received, cashondelivery_amount, subtotal_amount, freight_amount, tax_amount, posted_date
+
+Sales Detail table:
+order_number, sop_type, itemnumber, item sequence, location_code, quantity, uom, uom_quantity, pricing_level, unit_cost, unit_price, discount_amount, line_tax, extended_cost, extended_price, address_1, address_2, address_3, city, state, zipcode, customer_country, shipment_method, requested_shipdate, extra_column
+
+Payment Header table:
+order_number, sop_type, origin_number, customer_po_number, customer_number, created_date, posted_date, payment_term, payment_source, payment_reference, payment_number, payment_currency, payment_created_date, payment_applied_amount
+
+Payment Detail table:
+order_number, payment_number, gl_account, gl_account_description, gl_debit, gl_credit
+
+Using these tables, craft a SQL query to retrieve the necessary columns for the requested prediction.
+Only return a comma separated list of columns.

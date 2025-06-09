@@ -1,0 +1,10 @@
+pandas
+numpy
+matplotlib
+statsmodels
+sqlalchemy
+psycopg2-binary
+pymysql
+pyodbc
+python-dotenv
+openai
